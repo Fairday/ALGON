@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30001.183
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALGON.DataStructures", "ALGON.DataStructures\ALGON.DataStructures.csproj", "{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALGON.Algorithms", "ALGON.Algorithms\ALGON.Algorithms.csproj", "{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALGON.Tests", "ALGON.Tests\ALGON.Tests.csproj", "{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Debug|x64.Build.0 = Debug|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Debug|x86.Build.0 = Debug|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Release|x64.ActiveCfg = Release|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Release|x64.Build.0 = Release|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Release|x86.ActiveCfg = Release|Any CPU
+		{9A869CAD-8F31-4796-B51B-6F55B5CEA79E}.Release|x86.Build.0 = Release|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Debug|x64.Build.0 = Debug|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Debug|x86.Build.0 = Debug|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Release|x64.ActiveCfg = Release|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Release|x64.Build.0 = Release|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Release|x86.ActiveCfg = Release|Any CPU
+		{58CAC5A6-4F87-491A-B6B0-07998B0A0F7B}.Release|x86.Build.0 = Release|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Release|x64.Build.0 = Release|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A37D6A0-42EA-4AEE-8DD4-D4A5E03D60DF}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE952A51-5273-497A-B4CF-64A05588D7CE}
+	EndGlobalSection
+EndGlobal
