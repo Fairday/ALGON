@@ -1,27 +1,25 @@
-﻿using ALGON.DataStructures.Details;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace ALGON.DataStructures.LinkedLists
 {
     /// <summary>
-    /// Базовая (учебная) реализация двусвязного списка
+    /// Реализация кольцевого односвязного списка
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ALinkedList<T> : ICollection<T>, IARC<T>
+    public class CircularALinkedList<T> : ICollection<T>
     {
         /// <summary>
         /// Ссылка на первый элемент
         /// </summary>
-        public ALinkedListNode<T> Head { get; private set; }
+        ALinkedListNode<T> _Head;
         /// <summary>
         /// Ссылка на последний элемент
         /// </summary>
-        public ALinkedListNode<T> Tail { get; private set; }
+        ALinkedListNode<T> _Tail;
         /// <summary>
-        /// Возращает количество элементов списка
-        /// Сложность: O(1)
+        /// Количество элементов в списке
         /// </summary>
         public int Count { get; private set; }
         /// <summary>
@@ -36,65 +34,22 @@ namespace ALGON.DataStructures.LinkedLists
         /// <param name="item"></param>
         public void Add(T item)
         {
-            AddLast(item);
-        }
-        /// <summary>
-        /// Добавление элемента в начало списка
-        /// Сложность: O(1)
-        /// </summary>
-        /// <param name="item"></param>
-        public void AddFirst(T item)
-        {
-            var node = new ALinkedListNode<T>(item);
-
-            //Ссылка на текущий первый элемента
-            var temp = Head;
-            //Вставляем перед текущим первым элементом
-            Head = node;
-            Head.Next = temp;
-            //Если элементов не было
-            if (Count == 0)
-            {
-                Tail = Head;
-            }
-            else
-            {
-                temp.Previous = Head;
-            }
-
-            Count++;
-        }
-        /// <summary>
-        /// Добавление элемента в конец
-        /// Сложность: O(1)
-        /// </summary>
-        /// <param name="item"></param>
-        public void AddLast(T item)
-        {
             var node = new ALinkedListNode<T>(item);
 
             if (Count == 0)
             {
-                Head = node;
+                _Head = node;
+                _Tail = node;
+                _Tail.Next = _Head;
             }
             else
             {
-                Tail.Next = node;
-                node.Previous = Tail;
+                _Tail.Next = node;
+                node.Next = _Head;
+                _Tail = node;
             }
 
-            Tail = node;
             Count++;
-        }
-        /// <summary>
-        /// Очистка коллекции
-        /// Сложность: O(1)
-        /// </summary>
-        public void Clear()
-        {
-            Head = null;
-            Tail = null;
-            Count = 0;
         }
         /// <summary>
         /// Удаление элемента 
@@ -105,91 +60,55 @@ namespace ALGON.DataStructures.LinkedLists
         public bool Remove(T item)
         {
             ALinkedListNode<T> previous = null;
-            ALinkedListNode<T> current = Head;
+            ALinkedListNode<T> current = _Head;
 
-            while (current != null)
+            if (Count == 0)
+                return false;
+
+            do
             {
                 if (current.Value.Equals(item))
                 {
-                    //Найденный узел в середине или в конце
                     if (previous != null)
                     {
                         previous.Next = current.Next;
 
-                        //Обновляем хвост
-                        if (current.Next == null)
-                            Tail = previous;
-                        else
-                            current.Next.Previous = previous;
-
-                        Count--;
+                        if (current == _Tail)
+                            _Tail = previous;
                     }
-                    //Найденный узел первый или единственный в списке
                     else
                     {
-                        RemoveFirst();
+                        if (Count == 1)
+                        {
+                            _Head = null;
+                            _Tail = null;
+                        }
+                        else
+                        {
+                            _Head = current.Next;
+                            _Tail.Next = _Head;
+                        }
                     }
 
+                    Count--;
                     return true;
                 }
 
                 previous = current;
-                current = previous.Next;
+                current = current.Next;
             }
-
+            while (current != _Head);
             return false;
         }
         /// <summary>
-        /// Удаление первого элемента
+        /// Очистка коллекции
         /// Сложность: O(1)
         /// </summary>
-        /// <returns></returns>
-        public bool RemoveFirst()
+        public void Clear()
         {
-            if (Count != 0)
-            {
-                Head = Head.Next;
-
-                Count--;
-
-                if (Count == 0)
-                {
-                    Tail = null;
-                }
-                else
-                {
-                    Head.Previous = null;
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-        /// <summary>
-        /// Удаление последнео элемента
-        /// Сложность: O(1)
-        /// </summary>
-        /// <returns></returns>
-        public bool RemoveLast()
-        {
-            if (Count != 0)
-            {
-                Tail = Tail.Previous;
-
-                Count--;
-
-                if (Count == 0)
-                {
-                    Head = null;
-                }
-                else
-                {
-                    Tail.Next = null;
-                }
-            }
-
-            return false;
+            _Head = null;
+            _Tail = null;
+            Count = 0;
         }
         /// <summary>
         /// Наличие элемента в коллекции
@@ -199,15 +118,19 @@ namespace ALGON.DataStructures.LinkedLists
         /// <returns></returns>
         public bool Contains(T item)
         {
-            var current = Head;
-            while (current != null)
+            ALinkedListNode<T> current = _Head;
+
+            if (Count == 0)
+                return false;
+
+            do
             {
                 if (current.Value.Equals(item))
                     return true;
-
-                current = current.Next;
+                else
+                    current = current.Next;
             }
-
+            while (current != _Head);
             return false;
         }
         /// <summary>
@@ -228,12 +151,16 @@ namespace ALGON.DataStructures.LinkedLists
                 throw new ArgumentException("The number of elements in the source System.Collections.Generic.ICollection`1 is greater " +
                     "than the available space from arrayIndex to the end of the destination array.");
 
-            var current = Head;
-            while (current != null)
+            var current = _Head;
+            do
             {
-                array[arrayIndex++] = current.Value;
-                current = current.Next;
+                if (current != null)
+                {
+                    array[arrayIndex++] = current.Value;
+                    current = current.Next;
+                }
             }
+            while (current != _Head);
         }
         /// <summary>
         /// Обход по всем элементам
@@ -243,12 +170,17 @@ namespace ALGON.DataStructures.LinkedLists
         /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
-            var current = Head;
-            while (current != null)
+            ALinkedListNode<T> current = _Head;
+
+            do
             {
-                yield return current.Value;
-                current = current.Next;
+                if (current != null)
+                {
+                    yield return current.Value;
+                    current = current.Next;
+                }    
             }
+            while (current != _Head);
         }
         /// <summary>
         /// Явная реализация интерфейса для получения итератора 

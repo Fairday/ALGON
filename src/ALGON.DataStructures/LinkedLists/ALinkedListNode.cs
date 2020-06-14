@@ -1,6 +1,6 @@
 ﻿namespace ALGON.DataStructures.LinkedLists
 {
-    internal class ALinkedListNode<T>
+    public class ALinkedListNode<T>
     {
         public ALinkedListNode(T value)
         {
@@ -8,6 +8,7 @@
         }
 
         public T Value { get; internal set; }
+        public ALinkedListNode<T> Previous { get; internal set; }
         public ALinkedListNode<T> Next { get; internal set; }
     }
 }

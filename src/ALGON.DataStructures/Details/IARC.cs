@@ -1,9 +1,9 @@
 ﻿namespace ALGON.DataStructures.Details
 {
-    public interface IRAS<T>
+    public interface IARC<T>
     {
-        bool Contains(T item);
         void Add(T item);
         bool Remove(T item);
+        bool Contains(T item);
     }
 }
