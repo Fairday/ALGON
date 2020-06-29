@@ -8,10 +8,10 @@ namespace ALGON.DataStructures.LinkedLists
     /// Реализация кольцевого односвязного списка
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class CircularALinkedList<T> : ICollection<T>
+    public class SinglyCircularALinkedList<T> : ICollection<T>
     {
         /// <summary>
-        /// Ссылка на первый элемент
+        /// Ссылка на первый элемент (начало отсчета)
         /// </summary>
         ALinkedListNode<T> _Head;
         /// <summary>

@@ -3,7 +3,7 @@
 namespace ALGON.Tests.LinkedListsTests
 {
     [TestFixture]
-    public class CircularALinkedListTests
+    public class SinglyCircularALinkedListTests
     {
     }
 }
