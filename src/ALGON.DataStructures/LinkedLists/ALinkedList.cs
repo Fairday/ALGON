@@ -269,7 +269,7 @@ namespace ALGON.DataStructures.LinkedLists
             return ((IEnumerable)this).GetEnumerator();
         }
         /// <summary>
-        /// Определяет есть ли цикл в данном связном списке
+        /// Определяет: есть ли цикл в данном связном списке
         /// Временная сложность: O(n)
         /// </summary>
         /// <returns></returns>
@@ -376,7 +376,7 @@ namespace ALGON.DataStructures.LinkedLists
             }
         }
         /// <summary>
-        /// Вставка элемента по определенному индексу
+        /// Вставка элемента по индексу
         /// Временная сложность: O(n)
         /// </summary>
         /// <param name="index"></param>
@@ -424,7 +424,7 @@ namespace ALGON.DataStructures.LinkedLists
 
             var prev = Head;
             var head = Head.Next;
-            var current = Head;
+            var current = head;
             Tail = prev;
             prev.Next = null;
 
