@@ -9,7 +9,7 @@ namespace ALGON.DataStructures.LinkedLists
     /// Базовая (учебная) реализация двусвязного списка
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ALinkedList<T> : ICollection<T>, IARC<T>
+    public class ALinkedList<T> : ICollection<T>, IARC<T>, IList<T>
     {
         /// <summary>
         /// Ссылка на первый элемент
@@ -28,6 +28,12 @@ namespace ALGON.DataStructures.LinkedLists
         /// Данная коллекция не может использоваться только для чтения
         /// </summary>
         public bool IsReadOnly => false;
+        /// <summary>
+        /// Индексатор доступа к элементу/изменения значения элемента по индексу
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         /// <summary>
         /// Добавление элемента в конец списка
         /// Сложность: O(1), если есть ссылка на последний узел
@@ -216,6 +222,9 @@ namespace ALGON.DataStructures.LinkedLists
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
+        /// <exception cref="System.ArgumentNullException">array is null</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">arrayIndex is less than 0</exception>
+        /// <exception cref="System.ArgumentException">The number of elements in the source System.Collections.Generic.ICollection`1 is greater " + "than the available space from arrayIndex to the end of the destination array.</exception>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (array == null)
@@ -258,6 +267,177 @@ namespace ALGON.DataStructures.LinkedLists
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
+        }
+        /// <summary>
+        /// Определяет есть ли цикл в данном связном списке
+        /// Временная сложность: O(n)
+        /// </summary>
+        /// <returns></returns>
+        public bool CycleExist()
+        {
+            if (Head == null)
+                return false;
+
+            var slow = Head;
+            var fast = Head.Next;
+
+            while (slow != fast) 
+            {
+                if (fast == null || fast.Next == null)
+                    return false;
+
+                slow = slow.Next;
+                fast = fast.Next.Next;
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// Возвращает узел, на котором начинается циклическая структура
+        /// Временная сложность: O(n)
+        /// </summary>
+        /// <returns></returns>
+        public ALinkedListNode<T> CycleStart()
+        {
+            if (Head == null)
+                return null;
+
+            /// TODO: Подумать над алгоритм без дополнительного места
+            var visitedNodes = new HashSet<ALinkedListNode<T>>();
+            var current = Head;
+            visitedNodes.Add(current);
+
+            while (current != null) 
+            {
+                current = current.Next;
+                if (!visitedNodes.Add(current)) 
+                    return current;
+            }
+
+            return null;
+        }
+        /// <summary>
+        /// Возвращает индекс первого вхождения элемента
+        /// Возвращает -1, если элемент отсутствует в списке
+        /// Временная сложность: O(n)
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public int IndexOf(T item)
+        {
+            if (Head == null)
+                return -1;
+
+            var current = Head;
+            var i = 0;
+
+            while (current != null)
+            {
+                if (current.Value.Equals(item)) 
+                    return i;
+                current = current.Next;
+                i++;
+            }
+
+            return -1;
+        }
+        /// <summary>
+        /// Удаляет элемент по индексу
+        /// Временная сложность: O(n)
+        /// </summary>
+        /// <param name="index"></param>
+        /// <exception cref="System.ArgumentOutOfRangeException">index out of range</exception>
+        public void RemoveAt(int index)
+        {
+            if (index > Count - 1 || index < 0)
+            {
+                throw new ArgumentOutOfRangeException($"Index {index} out of range");
+            }
+
+            if (index == Count - 1)
+                RemoveLast();
+
+            if (index == 0)
+                RemoveFirst();
+
+            var current = Head;
+            var i = 0;
+
+            while (current != null) 
+            {
+                if (++i == index) 
+                {
+                    current.Previous.Next = current.Next;
+                    current.Next.Previous = current.Previous;
+                    Count--;
+                    break;
+                }
+                current = current.Next;
+            }
+        }
+        /// <summary>
+        /// Вставка элемента по определенному индексу
+        /// Временная сложность: O(n)
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="item"></param>
+        /// <exception cref="System.ArgumentOutOfRangeException">index out of range</exception>
+        public void Insert(int index, T item)
+        {
+            if (index > Count || index < 0)
+            {
+                throw new ArgumentOutOfRangeException($"Index {index} out of range");
+            }
+
+            if (index == Count)
+                AddLast(item);
+
+            if (index == 0)
+                AddFirst(item);
+
+            var node = new ALinkedListNode<T>(item);
+            var current = Head;
+            var i = 0;
+
+            while (current != null)
+            {
+                if (++i == index) 
+                {
+                    current.Next.Previous = node;
+                    node.Next = current.Next;
+                    node.Previous = current;
+                    current.Next = node;
+                    Count++;
+                    break;
+                }
+                current = current.Next;
+            }
+        }
+        /// <summary>
+        /// Выполняет функцию разворота списка
+        /// Временная сложность: O(n)
+        /// </summary>
+        public void Reverse()
+        {
+            if (Head == null)
+                return;
+
+            var prev = Head;
+            var head = Head.Next;
+            var current = Head;
+            Tail = prev;
+            prev.Next = null;
+
+            while (head != null)
+            {
+                head = Head.Next;
+                current.Next = prev;
+                prev.Previous = current;
+                prev = current;
+                current = head;
+            }
+
+            Head = prev;
         }
     }
 }
